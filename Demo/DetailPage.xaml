@@ -1,0 +1,218 @@
+﻿<Page
+    x:Class="Demo.DetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Demo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel x:Name="mfpDetails" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock x:Uid="tbFinderRes" x:Name="title" Text="MFP Info Viewer" Style="{StaticResource SubheaderTextBlockStyle}" Padding="10" FontSize="30" />
+        <AppBarButton x:Uid="appBarBtnRes" x:Name="themeButton" Click="OnThemeButtonClick" Label="Toggle Theme" RelativePanel.AlignRightWithPanel="True" Padding="20" Margin="0,10,50,0">
+            <AppBarButton.Icon>
+                <FontIcon Glyph="&#xE771;" Margin="0,-2,0,0" />
+            </AppBarButton.Icon>
+        </AppBarButton>
+
+        <ProgressRing x:Name="progressRing" IsActive="{x:Bind IsProgressBarActive, Mode=OneWay}" Visibility="{x:Bind ShowProgressBar, Mode=OneWay}" Height="80" Width="80" RelativePanel.Below="title" Margin="100,30,0,10" />
+        <TextBlock x:Name="mfpInfo" Width="Auto" Height="Auto" Margin="100,20,20,20" TextWrapping="Wrap" RelativePanel.Below="progressRing">
+        </TextBlock>
+
+        <TextBlock x:Uid="prnName" x:Name="mfpPrnName" Foreground="Green" FontSize="20" Text="Printer Name" Margin="100,50,0,0" RelativePanel.Below="mfpInfo" />
+        <TextBox x:Name="mfpPrnValue" Width="220" RelativePanel.Below="mfpInfo" RelativePanel.RightOf="mfpPrnName" Margin="100,50,20,0" IsReadOnly="True" BorderThickness="0" />
+
+        <TextBlock x:Uid="prnModel" x:Name="mfpSysName" Foreground="Green" FontSize="20" Text="Model" RelativePanel.AlignLeftWith="mfpPrnName" RelativePanel.Below="mfpPrnName" Margin="100,20,0,0" />
+        <TextBox x:Name="mfpSysValue" Width="220" RelativePanel.Below="mfpPrnValue" RelativePanel.RightOf="mfpSysName" RelativePanel.AlignLeftWith="mfpPrnValue" Margin="100,15,0,0" IsReadOnly="True" BorderThickness="0" />
+
+        <TextBlock x:Uid="prnBrand" x:Name="brandName" Foreground="Green" FontSize="20" Text="Brand" RelativePanel.AlignLeftWith="mfpSysName" RelativePanel.Below="mfpSysName" Margin="100,20,0,0" />
+        <TextBox x:Name="brandValue" Width="220" RelativePanel.Below="mfpSysValue" RelativePanel.RightOf="mfpSysName" RelativePanel.AlignLeftWith="mfpSysValue" Margin="100,15,0,0" IsReadOnly="True" BorderThickness="0" />
+
+        <TextBlock x:Uid="prnFax" x:Name="faxName" Foreground="Green" FontSize="20" Text="Fax" RelativePanel.AlignLeftWith="brandName" RelativePanel.Below="brandName" Margin="100,20,0,0" />
+        <TextBox x:Name="faxValue" Width="220" RelativePanel.Below="brandValue" RelativePanel.RightOf="faxName" RelativePanel.AlignLeftWith="brandValue" Margin="100,15,0,0" IsReadOnly="True" BorderThickness="0" />
+
+        <TextBlock x:Uid="prnSNo" x:Name="snoName" Foreground="Green" FontSize="20" Text="Serial No" RelativePanel.AlignLeftWith="faxName" RelativePanel.Below="faxName" Margin="100,20,0,0" />
+        <TextBox x:Name="snoValue" Width="220" RelativePanel.Below="faxValue" RelativePanel.RightOf="snoName" RelativePanel.AlignLeftWith="faxValue" Margin="100,15,0,0" IsReadOnly="True" BorderThickness="0" />
+
+        <TextBlock x:Uid="prnLang" x:Name="langName" Foreground="Green" FontSize="20" Text="Engine Version" RelativePanel.AlignLeftWith="snoName" RelativePanel.Below="snoName" Margin="100,20,0,0" />
+        <TextBox x:Name="langValue" Width="220" RelativePanel.Below="snoValue" RelativePanel.RightOf="langName" RelativePanel.AlignLeftWith="snoValue" Margin="100,15,0,0" IsReadOnly="True" BorderThickness="0" />
+
+        <TextBlock x:Uid="prnMAC" x:Name="macName" Foreground="Green" FontSize="20" Text="Physical Address" RelativePanel.AlignLeftWith="langName" RelativePanel.Below="langName" Margin="100,20,0,0" />
+        <TextBox x:Name="macValue" Width="220" RelativePanel.Below="langValue" RelativePanel.RightOf="langName" RelativePanel.AlignLeftWith="langValue" Margin="100,15,0,0" IsReadOnly="True" BorderThickness="0" />
+
+        <Image x:Name="mfpImg" Source="ms-appx:///Assets/Toshiba-e-studio2505AC.jpg"  Stretch="Uniform" RelativePanel.AlignRightWithPanel="True" RelativePanel.Below="themeButton" Margin="30,30,30,30" DoubleTapped="mfpImg_DoubleTapped" />
+
+        <StackPanel x:Name="copyright" Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True">
+            <TextBlock x:Name="copyrightLabel" FontFamily="Segoi UI" FontStyle="Oblique" FontSize="15" Text="Copyright © 2017 ABC CORPORATION, All Rights Reserved" Margin="8" RelativePanel.AlignLeftWithPanel="True" />
+        </StackPanel>
+        <StackPanel x:Name="complogo" Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.RightOf="copyright" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" HorizontalAlignment="Center">
+            <!--<Image x:Name="compLogo" Source="/Assets/AboutToshiba.bmp" Height="25"/>-->
+        </StackPanel>
+        <StackPanel x:Name="version" Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.RightOf="complogo" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right">
+            <TextBlock x:Name="verLabel" FontFamily="Segoi UI" FontStyle="Oblique" FontSize="15" Text="Ver 1.0" Margin="8" />
+        </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1008" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+                        <Setter Target="mfpImg.Width" Value="Auto" />
+                        <Setter Target="mfpImg.Height" Value="Auto" />
+                        <Setter Target="mfpInfo.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="mfpInfo.(RelativePanel.LeftOf)" Value="mfpImg" />
+                        <Setter Target="macName.(RelativePanel.Above)" Value="copyright" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+						<Setter Target="progressRing.Margin" Value="60,30,0,10" />
+						<Setter Target="mfpInfo.Margin" Value="50,10,30,20" />
+						<Setter Target="mfpImg.(RelativePanel.RightOf)" Value="mfpInfo" />
+						<Setter Target="mfpImg.(RelativePanel.AlignRightWithPanel)" Value="True" />
+						<Setter Target="mfpImg.MaxWidth" Value="250" />
+                        <Setter Target="mfpImg.MaxHeight" Value="250" />
+						<Setter Target="mfpPrnName.Margin" Value="50,0,0,0" />
+						<Setter Target="mfpSysName.Margin" Value="50,15,0,0" />
+						<Setter Target="brandName.Margin" Value="50,15,0,0" />
+						<Setter Target="faxName.Margin" Value="50,15,0,0" />
+						<Setter Target="snoName.Margin" Value="50,15,0,0" />
+						<Setter Target="langName.Margin" Value="50,15,0,0" />
+						<Setter Target="macName.Margin" Value="50,15,0,0" />
+						<Setter Target="mfpPrnValue.Margin" Value="50,0,0,0" />
+						<Setter Target="mfpSysValue.Margin" Value="50,10,0,0" />
+						<Setter Target="brandValue.Margin" Value="50,10,0,0" />
+						<Setter Target="faxValue.Margin" Value="50,10,0,0" />
+						<Setter Target="snoValue.Margin" Value="50,10,0,0" />
+						<Setter Target="langValue.Margin" Value="50,10,0,0" />
+						<Setter Target="macValue.Margin" Value="50,10,0,0" />
+						<Setter Target="mfpPrnValue.Width" Value="150" />
+                        <Setter Target="mfpSysValue.Width" Value="150" />
+                        <Setter Target="brandValue.Width" Value="150" />
+                        <Setter Target="faxValue.Width" Value="150" />
+                        <Setter Target="snoValue.Width" Value="150" />
+                        <Setter Target="langValue.Width" Value="150" />
+                        <Setter Target="macValue.Width" Value="150" />
+						<Setter Target="macName.(RelativePanel.Above)" Value="copyright" />
+                        <Setter Target="copyrightLabel.Text" Value="© ABC" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+						<Setter Target="title.FontSize" Value="20" />
+						<Setter Target="themeButton.Margin" Value="0,10,10,0" />
+						<Setter Target="themeButton.Padding" Value="10" />
+                        <Setter Target="mfpInfo.Margin" Value="50,15,0,20" />
+                        <Setter Target="progressRing.Height" Value="Auto" />
+                        <Setter Target="progressRing.Width" Value="Auto" />
+                        <Setter Target="progressRing.Margin" Value="30,5,0,0" />
+						<Setter Target="mfpImg.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="mfpImg.(RelativePanel.Below)" Value="macName" />
+						<Setter Target="mfpImg.(RelativePanel.Above)" Value="copyright" />
+						<Setter Target="mfpImg.Height" Value="Auto" />
+                        <Setter Target="mfpImg.Width" Value="Auto" />
+                        <Setter Target="mfpImg.Margin" Value="10,15,10,10" />
+                        <Setter Target="copyrightLabel.Text" Value="© ABC" />
+						<Setter Target="mfpPrnName.Margin" Value="20,0,0,0" />
+						<Setter Target="mfpSysName.Margin" Value="20,10,0,0" />
+						<Setter Target="brandName.Margin" Value="20,10,0,0" />
+						<Setter Target="faxName.Margin" Value="20,10,0,0" />
+						<Setter Target="snoName.Margin" Value="20,10,0,0" />
+						<Setter Target="langName.Margin" Value="20,10,0,0" />
+						<Setter Target="macName.Margin" Value="20,10,0,0" />
+						<Setter Target="mfpPrnValue.Margin" Value="30,0,0,0" />
+						<Setter Target="mfpSysValue.Margin" Value="30,5,0,0" />
+						<Setter Target="brandValue.Margin" Value="30,5,0,0" />
+						<Setter Target="faxValue.Margin" Value="30,5,0,0" />
+						<Setter Target="snoValue.Margin" Value="30,5,0,0" />
+						<Setter Target="langValue.Margin" Value="30,5,0,0" />
+						<Setter Target="macValue.Margin" Value="30,5,0,0" />
+						<Setter Target="mfpPrnValue.Width" Value="140" />
+                        <Setter Target="mfpSysValue.Width" Value="140" />
+                        <Setter Target="brandValue.Width" Value="140" />
+                        <Setter Target="faxValue.Width" Value="140" />
+                        <Setter Target="snoValue.Width" Value="140" />
+                        <Setter Target="langValue.Width" Value="140" />
+                        <Setter Target="macValue.Width" Value="140" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualStateMobileLandscape">
+                    <VisualState.StateTriggers>
+                        <local:OrientationTrigger Orientation="Landscape">
+                        </local:OrientationTrigger>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="title.FontSize" Value="20" />
+                        <Setter Target="themeButton.Margin" Value="0,10,10,0" />
+                        <Setter Target="themeButton.Padding" Value="10" />
+                        <Setter Target="progressRing.Height" Value="Auto" />
+                        <Setter Target="progressRing.Width" Value="Auto" />
+                        <Setter Target="progressRing.Margin" Value="30,0,0,0" />
+                        <Setter Target="mfpInfo.Margin" Value="10,0,0,20" />
+                        <Setter Target="mfpInfo.FontSize" Value="15" />
+                        <Setter Target="mfpImg.(RelativePanel.AlignRightWithPanel)" Value="True" />
+                        <Setter Target="mfpImg.(RelativePanel.Below)" Value="themeButton" />
+                        <Setter Target="mfpImg.(RelativePanel.RightOf)" Value="mfpPrnValue" />
+                        <Setter Target="mfpImg.(RelativePanel.Above)" Value="version" />
+                        <Setter Target="mfpImg.Height" Value="Auto" />
+                        <Setter Target="mfpImg.Width" Value="Auto" />
+                        <Setter Target="mfpImg.Margin" Value="10,10,10,10" />
+                        <Setter Target="copyrightLabel.Text" Value="© ABC" />
+                        <Setter Target="macName.(RelativePanel.Above)" Value="copyright" />
+                        <Setter Target="mfpPrnName.Margin" Value="20,2,0,0" />
+                        <Setter Target="mfpSysName.Margin" Value="20,10,0,0" />
+                        <Setter Target="brandName.Margin" Value="20,10,0,0" />
+                        <Setter Target="faxName.Margin" Value="20,10,0,0" />
+                        <Setter Target="snoName.Margin" Value="20,10,0,0" />
+                        <Setter Target="langName.Margin" Value="20,10,0,0" />
+                        <Setter Target="macName.Margin" Value="20,10,0,0" />
+                        <Setter Target="mfpPrnValue.Margin" Value="30,0,0,0" />
+                        <Setter Target="mfpSysValue.Margin" Value="30,-6.5,0,0" />
+                        <Setter Target="brandValue.Margin" Value="30,-6.5,0,0" />
+                        <Setter Target="faxValue.Margin" Value="30,-6.5,0,0" />
+                        <Setter Target="snoValue.Margin" Value="30,-6.5,0,0" />
+                        <Setter Target="langValue.Margin" Value="30,-6.5,0,0" />
+                        <Setter Target="macValue.Margin" Value="30,-6.5,0,0" />
+                        <Setter Target="mfpPrnValue.Width" Value="140" />
+                        <Setter Target="mfpSysValue.Width" Value="140" />
+                        <Setter Target="brandValue.Width" Value="140" />
+                        <Setter Target="faxValue.Width" Value="140" />
+                        <Setter Target="snoValue.Width" Value="140" />
+                        <Setter Target="langValue.Width" Value="140" />
+                        <Setter Target="macValue.Width" Value="140" />
+                        <Setter Target="mfpPrnName.FontSize" Value="12.5" />
+                        <Setter Target="mfpSysName.FontSize" Value="12.5" />
+                        <Setter Target="brandName.FontSize" Value="12.5" />
+                        <Setter Target="faxName.FontSize" Value="12.5" />
+                        <Setter Target="snoName.FontSize" Value="12.5" />
+                        <Setter Target="langName.FontSize" Value="12.5" />
+                        <Setter Target="macName.FontSize" Value="12.5" />
+                        <Setter Target="mfpPrnValue.FontSize" Value="12.5" />
+                        <Setter Target="mfpSysValue.FontSize" Value="12.5" />
+                        <Setter Target="brandValue.FontSize" Value="12.5" />
+                        <Setter Target="faxValue.FontSize" Value="12.5" />
+                        <Setter Target="snoValue.FontSize" Value="12.5" />
+                        <Setter Target="langValue.FontSize" Value="12.5" />
+                        <Setter Target="macValue.FontSize" Value="12.5" />
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
+</Page>

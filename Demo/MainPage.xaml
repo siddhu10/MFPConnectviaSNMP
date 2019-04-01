@@ -1,0 +1,126 @@
+﻿<Page
+    x:Class="Demo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Demo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel x:Name="mfpFinder" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock x:Uid="tbFinderRes" x:Name="title" Text="MFP Info Viewer" Style="{StaticResource SubheaderTextBlockStyle}" Padding="10" FontSize="30" />
+        <AppBarButton x:Uid="appBarBtnRes" x:Name="themeButton" Click="OnThemeButtonClick" Label="Toggle Theme" RelativePanel.AlignRightWithPanel="True" Padding="20" Margin="0,10,50,0">
+            <AppBarButton.Icon>
+                <FontIcon Glyph="&#xE771;" Margin="0,-2,0,0" />
+            </AppBarButton.Icon>
+        </AppBarButton>        
+
+        <TextBox x:Uid="ipTextBoxRes" x:Name="mfpIP" Width="300" Header="Enter MFP IP Address:" PlaceholderText="IP Address" 
+                 RelativePanel.AlignLeftWith="title" RelativePanel.Below="title" Margin="50,50,0,0" Padding="5"
+                 KeyDown="mfpIP_KeyDown" />
+        <Image x:Name="mfpImage" Source="ms-appx:///Assets/Toshiba-e-studio2505AC.jpg" Stretch="Uniform" RelativePanel.AlignRightWithPanel="True" RelativePanel.Below="themeButton" Margin="30,30,30,30" DoubleTapped="mfpImage_DoubleTapped" />
+        <Button x:Uid="findBtnRes" x:Name="findBtn" Content="Get Info" Background="#FF42A214" FontFamily="Segoi Print" FontSize="20" Foreground="White" RelativePanel.Below="mfpIP"
+                Margin="160,30" Click="Find_MFP">
+        </Button>
+        <Button x:Uid="clrBtnRes" x:Name="clearBtn" Content="Clear" Background="#FF42A214" FontFamily="Segoi Print" FontSize="20" Foreground="White" RelativePanel.AlignRightWith="mfpIP" RelativePanel.Below="mfpIP"
+                Margin="0,30" Click="Clear_IP">
+        </Button>
+        <Grid x:Name="scrollGrid" Margin="40,0,0,0" Width="Auto" Height="Auto" RelativePanel.Below="findBtn">
+            <ScrollViewer Width="Auto" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled">
+                <TextBlock x:Uid="prnInfo" x:Name="mfpInfo" Margin="40,0,0,0" FontSize="20" Foreground="Green" TextWrapping="Wrap">
+                </TextBlock>
+            </ScrollViewer>
+        </Grid>
+
+        <StackPanel x:Name="copyright" Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True">
+            <TextBlock x:Name="copyrightLabel" FontFamily="Segoi UI" FontStyle="Oblique" FontSize="15" Text="Copyright © 2017 ABC CORPORATION, All Rights Reserved" Margin="8" RelativePanel.AlignLeftWithPanel="True" />
+        </StackPanel>
+        <StackPanel x:Name="complogo" Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.RightOf="copyright" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" HorizontalAlignment="Center">
+            <!--<Image x:Name="compLogo" Source="/Assets/AboutToshiba.bmp" Height="25"/>-->
+        </StackPanel>
+        <StackPanel x:Name="version" Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.RightOf="complogo" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right">
+            <TextBlock x:Name="verLabel" FontFamily="Segoi UI" FontStyle="Oblique" FontSize="15" Text="Ver 1.0" Margin="8" />
+        </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1008" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+                        <Setter Target="mfpImage.Width" Value="Auto" />
+                        <Setter Target="mfpImage.Height" Value="Auto" />
+                        <Setter Target="scrollGrid.(RelativePanel.Above)" Value="copyright" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+                        <Setter Target="mfpImage.(RelativePanel.Below)" Value="clearBtn" />
+                        <Setter Target="mfpImage.Width" Value="Auto" />
+                        <Setter Target="mfpImage.Height" Value="Auto" />
+                        <Setter Target="mfpInfo.FontSize" Value="15" />
+                        <Setter Target="copyrightLabel.Text" Value="© ABC" />
+                        <Setter Target="scrollGrid.(RelativePanel.Above)" Value="copyright" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+						<Setter Target="title.FontSize" Value="20" />
+						<Setter Target="findBtn.FontSize" Value="15" />
+						<Setter Target="clearBtn.FontSize" Value="15" />
+						<Setter Target="findBtn.Margin" Value="60,20" />
+						<Setter Target="clearBtn.Margin" Value="0,20" />
+						<Setter Target="mfpIP.Width" Value="250" />
+                        <Setter Target="themeButton.Margin" Value="0,10,10,0" />
+						<Setter Target="mfpImage.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="mfpInfo.FontSize" Value="12" />
+                        <Setter Target="scrollGrid.Height" Value="100" />
+                        <Setter Target="mfpImage.(RelativePanel.Below)" Value="scrollGrid" />
+						<Setter Target="mfpImage.(RelativePanel.Above)" Value="copyright" />
+						<Setter Target="mfpImage.Height" Value="Auto" />
+                        <Setter Target="mfpImage.Width" Value="Auto" />
+                        <Setter Target="copyrightLabel.Text" Value="© ABC" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualStateMobileLandscape">
+                    <VisualState.StateTriggers>
+                        <local:OrientationTrigger Orientation="Landscape">
+                        </local:OrientationTrigger>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="title.Padding" Value="5" />
+                        <Setter Target="title.FontSize" Value="20" />
+                        <Setter Target="mfpIP.Width" Value="250" />
+                        <Setter Target="mfpIP.Margin" Value="15,10,0,0" />
+                        <Setter Target="findBtn.FontSize" Value="15" />
+                        <Setter Target="clearBtn.FontSize" Value="15" />
+                        <Setter Target="findBtn.Margin" Value="60,20" />
+                        <Setter Target="clearBtn.Margin" Value="0,20" />
+                        <Setter Target="mfpImage.Width" Value="Auto" />
+                        <Setter Target="mfpImage.Height" Value="Auto" />
+                        <Setter Target="mfpImage.(RelativePanel.RightOf)" Value="clearBtn" />
+                        <Setter Target="mfpInfo.FontSize" Value="15" />
+                        <Setter Target="copyrightLabel.Text" Value="© ABC" />
+                        <Setter Target="scrollGrid.(RelativePanel.Above)" Value="copyright" />
+                        <Setter Target="scrollGrid.Margin" Value="20,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+                
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
+</Page>
